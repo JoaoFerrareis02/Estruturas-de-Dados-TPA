@@ -1,21 +1,22 @@
-package structures.list;
+package structures.generic;
 
-public class ListaEncadeada {
+public class GenericLinkedList<T> {
+    
 
-    private No prim;
-    private No ult;
+    private GenericNode<T> prim;
+    private GenericNode<T> ult;
     private int quant;
 
-    public ListaEncadeada(){
+    public GenericLinkedList(){
         this.prim = this.ult = null;
         this.quant = 0;
     }
 
-    public No getPrim() {
+    public GenericNode<T> getPrim() {
         return prim;
     }
 
-    public No getUlt() {
+    public GenericNode<T> getUlt() {
         return ult;
     }
 
@@ -23,8 +24,8 @@ public class ListaEncadeada {
         return quant;
     }
 
-    public void inserirElemento(Object elem){
-        No novo = new No(elem);
+    public void inserirElemento(T elem){
+        GenericNode<T> novo = new GenericNode<>(elem);
         //Se a lista está vazia
         if(this.prim == null){
             this.prim = novo;
@@ -38,8 +39,8 @@ public class ListaEncadeada {
         this.quant++;
     }
 
-    public boolean contemElemento(Object elem){
-        No aux = this.prim;
+    public boolean contemElemento(T elem){
+        GenericNode<T> aux = this.prim;
         while(aux != null){
             if(aux.getValor().equals(elem)) return true;
             aux = aux.getProx();
@@ -47,9 +48,9 @@ public class ListaEncadeada {
         return false;
     }
 
-    public boolean excluirElemento(Object elem){
-        No aux = this.prim;
-        No ant = null;
+    public boolean excluirElemento(T elem){
+        GenericNode<T> aux = this.prim;
+        GenericNode<T> ant = null;
         while(aux != null){
             //Se encontrou remove o elemento
             if (aux.getValor().equals(elem)) {
@@ -79,7 +80,7 @@ public class ListaEncadeada {
 
     @Override
     public String toString() {
-        No aux = this.prim;
+        GenericNode<T> aux = this.prim;
         StringBuilder s = new StringBuilder();
         s.append("[");
         while (aux != null) {
@@ -90,7 +91,5 @@ public class ListaEncadeada {
         s.append("]");
         return s.toString();
     }
-
-    
 
 }

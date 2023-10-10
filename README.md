@@ -6,7 +6,9 @@ Implementação das estruturas de dados aprendidas na matéria de Técnicas Avan
 
 ## Estruturas:
 
-- [Lista Encadeada](./src/structures/list/ListaEncadeada.java): Implementação de uma `lista encadeada` com as funções de inserir, pesquisar e deletar.
+- [Lista Encadeada](./src/structures/list/LinkedList.java): Implementação de uma `lista encadeada` com as funções de inserir, pesquisar e deletar.
+
+- [Lista Genérica](./src/structures/generic/GenericLinkedList.java): Implementação de um `lista genérica` com as funções de inserir, pesquisar e deletar.
 
 ## Informação:
 

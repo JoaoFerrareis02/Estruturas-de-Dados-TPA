@@ -44,7 +44,17 @@ public class Aluno {
     }
 
     @Override
-    public boolean equals(Object a){
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + matricula;
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        result = prime * result + nota;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object a) {
         if (a instanceof Aluno) {
             return this.matricula==((Aluno)a).matricula;
         }
@@ -52,6 +62,8 @@ public class Aluno {
             return false;
         }
     }
+
+    
 
         
 
