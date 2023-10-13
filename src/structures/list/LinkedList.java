@@ -1,5 +1,7 @@
 package structures.list;
 
+import structures.node.Node;
+
 public class LinkedList {
 
     private Node prim;

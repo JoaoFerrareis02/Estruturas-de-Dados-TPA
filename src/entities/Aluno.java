@@ -1,6 +1,6 @@
 package entities;
 
-public class Aluno {
+public class Aluno implements Comparable<Aluno>{
     
     private int matricula;
 
@@ -63,9 +63,9 @@ public class Aluno {
         }
     }
 
-    
+    @Override
+    public int compareTo(Aluno o) {
+        return this.nome.compareTo(o.getNome());
+    }    
 
-        
-
-    
 }

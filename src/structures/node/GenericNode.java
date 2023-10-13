@@ -1,4 +1,4 @@
-package structures.generic;
+package structures.node;
 
 public class GenericNode<T> {
     
