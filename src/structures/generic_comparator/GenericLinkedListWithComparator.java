@@ -1,19 +1,23 @@
-package structures.generic_comparable;
+package structures.generic_comparator;
+
+import java.util.Comparator;
 
 import structures.nodes.GenericNode;
 
-public class GenericLinkedListWithComparable<T extends Comparable> {
+public class GenericLinkedListWithComparator<T> {
     
 
     private GenericNode<T> prim;
     private GenericNode<T> ult;
     private int quant;
     private final boolean ordenada;
+    private Comparator<T> comparator;
 
-    public GenericLinkedListWithComparable(boolean ordenada){
+    public GenericLinkedListWithComparator(boolean ordenada, Comparator<T> comparator){
         this.prim = this.ult = null;
         this.quant = 0;
         this.ordenada = ordenada;
+        this.comparator = comparator;
     }
 
     public GenericNode<T> getPrim() {
@@ -56,7 +60,7 @@ public class GenericLinkedListWithComparable<T extends Comparable> {
             //em um elemento menor que o novo vou para o proximo
             //Note que a ordem das condições faz a diferença 
             //Se inverter, pode dar null pointer exception...
-            while (atual != null && atual.getValor().compareTo(elem) < 0) {
+            while (atual != null && comparator.compare(atual.getValor(), elem) < 0) {
                 ant = atual;
                 atual = atual.getProx();
             }

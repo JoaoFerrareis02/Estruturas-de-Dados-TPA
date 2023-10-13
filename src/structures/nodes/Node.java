@@ -1,4 +1,4 @@
-package structures.node;
+package structures.nodes;
 
 public class Node {
     

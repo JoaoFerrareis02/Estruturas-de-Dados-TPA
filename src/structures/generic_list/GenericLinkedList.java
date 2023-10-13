@@ -1,6 +1,6 @@
 package structures.generic_list;
 
-import structures.node.GenericNode;
+import structures.nodes.GenericNode;
 
 public class GenericLinkedList<T> {
     

@@ -12,6 +12,8 @@ Implementação das estruturas de dados aprendidas na matéria de Técnicas Avan
 
 - [Lista Genérica ordenada com Comparable](./src/structures/generic_comparable/GenericLinkedListWithComparable.java): Implementação de uma lista genérica com ordenação por meio de `Comparable`.
 
+- [Lista Genérica ordenada com Comparator](./src/structures/generic_comparator/GenericLinkedListWithComparator.java): Implementação de uma lista genérica com ordenação por meio de `Comparator`.
+
 ## Informação:
 
 - Autor: João Victor Ferrareis Ribeiro
