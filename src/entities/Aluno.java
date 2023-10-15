@@ -6,12 +6,9 @@ public class Aluno implements Comparable<Aluno>{
 
     private String nome;
 
-    private int nota;
-
-    public Aluno(int matricula, String nome, int nota) {
+    public Aluno(int matricula, String nome) {
         this.matricula = matricula;
         this.nome = nome;
-        this.nota = nota;
     }
 
     public int getMatricula() {
@@ -30,14 +27,6 @@ public class Aluno implements Comparable<Aluno>{
         this.nome = nome;
     }
 
-    public int getNota() {
-        return nota;
-    }
-
-    public void setNota(int nota) {
-        this.nota = nota;
-    }
-
     @Override
     public String toString() {
         return Integer.toString(matricula) + " - " + nome;
@@ -49,7 +38,6 @@ public class Aluno implements Comparable<Aluno>{
         int result = 1;
         result = prime * result + matricula;
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        result = prime * result + nota;
         return result;
     }
 

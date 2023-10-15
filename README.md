@@ -14,6 +14,10 @@ Implementação das estruturas de dados aprendidas na matéria de Técnicas Avan
 
 - [Lista Genérica ordenada com Comparator](./src/structures/generic_comparator/GenericLinkedListWithComparator.java): Implementação de uma lista genérica com ordenação por meio de `Comparator`.
 
+- [Árvore Binária Genérica](./src/structures/generic_binary_tree/GenericBinaryTree.java): Implementação de uma `árvore binária` com funções de inserir, deletar, pesquisar, entre outras.
+
+- [Árvore Binária Perfeitamente Balanceada Genérica](./src/structures/generic_binary_tree/GenericBinaryTree.java): Implementação de uma `árvore binária perfeitamente balanceada` com funções de inserir, deletar, pesquisar, entre outras.
+
 ## Informação:
 
 - Autor: João Victor Ferrareis Ribeiro
