@@ -56,7 +56,6 @@ public class TreeGenerator {
 
     private String geraPalavra(int tam){
         int cont;
-        StringBuilder sb = new StringBuilder();
         String palavra = "";
 
         palavra+= geraLetra(false);

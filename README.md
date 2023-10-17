@@ -16,7 +16,7 @@ Implementação das estruturas de dados aprendidas na matéria de Técnicas Avan
 
 - [Árvore Binária Genérica](./src/structures/generic_binary_tree/GenericBinaryTree.java): Implementação de uma `árvore binária` com funções de inserir, deletar, pesquisar, entre outras.
 
-- [Árvore Binária Perfeitamente Balanceada Genérica](./src/structures/generic_binary_tree/GenericBinaryTree.java): Implementação de uma `árvore binária perfeitamente balanceada` com funções de inserir, deletar, pesquisar, entre outras.
+- [Árvore Binária Perfeitamente Balanceada Genérica](./src/structures/generic_balanced_binary_tree/GenericBalancedBinaryTree.java): Implementação de uma `árvore binária perfeitamente balanceada` com funções de inserir, deletar, pesquisar, entre outras.
 
 ## Informação:
 
