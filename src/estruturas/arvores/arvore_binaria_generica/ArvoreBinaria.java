@@ -1,4 +1,4 @@
-package estruturas.arvore_binaria_generica;
+package estruturas.arvores.arvore_binaria_generica;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import estruturas.no.NoArvore;
+import estruturas.arvores.no.NoArvore;
 
 public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
     

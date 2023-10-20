@@ -1,4 +1,4 @@
-package estruturas.grafo_lista_arestas;
+package estruturas.grafos.grafo_lista_arestas;
 
 public class Vertice<T> {
     

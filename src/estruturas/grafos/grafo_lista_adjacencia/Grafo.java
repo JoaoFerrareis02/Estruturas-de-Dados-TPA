@@ -1,12 +1,19 @@
-package estruturas.grafo_lista_arestas;
+package estruturas.grafos.grafo_lista_adjacencia;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Grafo<T> {
+    
+    private List<Vertice<T>> vertices;
 
-    private List<Aresta<T>> arestas = new ArrayList<>();
-    private List<Vertice<T>> vertices = new ArrayList<>();
+    public Grafo() {
+        this.vertices = new ArrayList<>();
+    }
+
+    public List<Vertice<T>> getVertices() {
+        return vertices;
+    }
 
     /**
      * Método para adicionar um vértice na lista de vértices.
@@ -36,39 +43,37 @@ public class Grafo<T> {
     }
 
     /**
-     * Método para adicionar uma aresta a lista de arestas.
+     * Método para adicionar uma aresta a lista de arestas do vértice de origem.
      * @param origem - Valor do vértice de origem
      * @param destino - Valor do vértice de destino
      * @param peso - Peso da Aresta
      */
 
-    public void adicionarAresta(T origem, T destino, float peso){
+     public void adicionarAresta(T origem, T destino, float peso){
         Vertice<T> verticeOrigem;
         Vertice<T> verticeDestino;
-        Aresta<T> novaAresta;
         verticeOrigem = obterVertice(origem);
         if (verticeOrigem == null) verticeOrigem = adicionarVertice(origem);
         verticeDestino = obterVertice(destino);
         if (verticeDestino == null) verticeDestino = adicionarVertice(destino);
-        novaAresta = new Aresta<>(verticeOrigem, verticeDestino, peso);
-        this.arestas.add(novaAresta);
+        verticeOrigem.adicionarDestino(new Aresta<>(verticeDestino, peso));
     }
 
     /**
-     * Método que imprime os vértices do grafo, semelhante com o caminhamento em nível de árvore.
+     * Método que imprime os vértices do grafo, em um busca em Largura.
      */
-
     public void buscaEmLargura(){
         List<Vertice<T>> marcados = new ArrayList<>();
         List<Vertice<T>> fila = new ArrayList<>();
         Vertice<T> atual = this.vertices.get(0);
         fila.add(atual);
+        System.out.println("Busca em Largura a partir do vértice: " + atual.getValor());
         while (!fila.isEmpty()) {
             atual = fila.get(0);
             fila.remove(0);
             marcados.add(atual);
             System.out.println(atual.getValor());
-            List<Aresta<T>> destinos = this.obterDestino(atual);
+            List<Aresta<T>> destinos = atual.getDestinos();   
             Vertice<T> proximo;
             for (int i = 0; i < destinos.size(); i++) {
                 proximo = destinos.get(i).getDestino();
@@ -77,26 +82,6 @@ public class Grafo<T> {
                 }
             }
         }
-    }
+    }    
 
-    /**
-     * Método que busca pelas arestas que fazem conexão com o vértice.
-     * @param v - Vértice de conexão.
-     * @return Uma lista com as arestas encontradas.
-     */
-
-    private ArrayList<Aresta<T>> obterDestino(Vertice<T> v) {
-        ArrayList<Aresta<T>> destinos = new ArrayList<>();
-        Aresta<T> atual;
-        for (int i = 0; i < this.arestas.size(); i++) {
-            atual = this.arestas.get(i);
-            if (atual.getOrigem().equals(v)) {
-                destinos.add(atual);
-            }
-        }
-        return destinos;
-    }
-
-
-    
 }

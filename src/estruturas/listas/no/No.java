@@ -1,4 +1,4 @@
-package estruturas.no;
+package estruturas.listas.no;
 
 public class No {
     

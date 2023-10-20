@@ -1,4 +1,4 @@
-package estruturas.no;
+package estruturas.arvores.no;
 
 public class NoArvore<T> {
     

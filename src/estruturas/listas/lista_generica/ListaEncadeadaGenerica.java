@@ -1,23 +1,24 @@
-package estruturas.lista;
+package estruturas.listas.lista_generica;
 
-import estruturas.no.No;
+import estruturas.listas.no.NoGenerico;
 
-public class ListaEncadeada {
+public class ListaEncadeadaGenerica<T> {
+    
 
-    private No prim;
-    private No ult;
+    private NoGenerico<T> prim;
+    private NoGenerico<T> ult;
     private int quant;
 
-    public ListaEncadeada(){
+    public ListaEncadeadaGenerica(){
         this.prim = this.ult = null;
         this.quant = 0;
     }
 
-    public No getPrim() {
+    public NoGenerico<T> getPrim() {
         return prim;
     }
 
-    public No getUlt() {
+    public NoGenerico<T> getUlt() {
         return ult;
     }
 
@@ -25,8 +26,8 @@ public class ListaEncadeada {
         return quant;
     }
 
-    public void inserirElemento(Object elem){
-        No novo = new No(elem);
+    public void inserirElemento(T elem){
+        NoGenerico<T> novo = new NoGenerico<>(elem);
         //Se a lista está vazia
         if(this.prim == null){
             this.prim = novo;
@@ -40,8 +41,8 @@ public class ListaEncadeada {
         this.quant++;
     }
 
-    public boolean contemElemento(Object elem){
-        No aux = this.prim;
+    public boolean contemElemento(T elem){
+        NoGenerico<T> aux = this.prim;
         while(aux != null){
             if(aux.getValor().equals(elem)) return true;
             aux = aux.getProx();
@@ -49,9 +50,9 @@ public class ListaEncadeada {
         return false;
     }
 
-    public boolean excluirElemento(Object elem){
-        No aux = this.prim;
-        No ant = null;
+    public boolean excluirElemento(T elem){
+        NoGenerico<T> aux = this.prim;
+        NoGenerico<T> ant = null;
         while(aux != null){
             //Se encontrou remove o elemento
             if (aux.getValor().equals(elem)) {
@@ -81,7 +82,7 @@ public class ListaEncadeada {
 
     @Override
     public String toString() {
-        No aux = this.prim;
+        NoGenerico<T> aux = this.prim;
         StringBuilder s = new StringBuilder();
         s.append("[");
         while (aux != null) {
@@ -92,7 +93,5 @@ public class ListaEncadeada {
         s.append("]");
         return s.toString();
     }
-
-    
 
 }

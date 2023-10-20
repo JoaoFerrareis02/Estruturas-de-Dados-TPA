@@ -3,7 +3,7 @@ package gerador;
 import java.util.Random;
 
 import entidades.Aluno;
-import estruturas.arvore_binaria_generica.IArvoreBinaria;
+import estruturas.arvores.arvore_binaria_generica.IArvoreBinaria;
 
 public class TreeGenerator {
     

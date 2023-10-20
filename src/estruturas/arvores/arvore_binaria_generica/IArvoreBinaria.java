@@ -1,4 +1,4 @@
-package estruturas.arvore_binaria_generica;
+package estruturas.arvores.arvore_binaria_generica;
 
 public interface IArvoreBinaria<T> {
     

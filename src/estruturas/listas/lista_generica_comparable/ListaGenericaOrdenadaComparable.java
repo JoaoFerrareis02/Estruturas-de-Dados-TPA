@@ -1,17 +1,19 @@
-package estruturas.lista_generica;
+package estruturas.listas.lista_generica_comparable;
 
-import estruturas.no.NoGenerico;
+import estruturas.listas.no.NoGenerico;
 
-public class ListaEncadeadaGenerica<T> {
+public class ListaGenericaOrdenadaComparable<T extends Comparable> {
     
 
     private NoGenerico<T> prim;
     private NoGenerico<T> ult;
     private int quant;
+    private final boolean ordenada;
 
-    public ListaEncadeadaGenerica(){
+    public ListaGenericaOrdenadaComparable(boolean ordenada){
         this.prim = this.ult = null;
         this.quant = 0;
+        this.ordenada = ordenada;
     }
 
     public NoGenerico<T> getPrim() {
@@ -26,7 +28,60 @@ public class ListaEncadeadaGenerica<T> {
         return quant;
     }
 
+    public boolean getOrdenada() {
+        return ordenada;
+    }
+
     public void inserirElemento(T elem){
+        if (!this.ordenada) {
+            inserirElementoNaoOrd(elem);
+        } else {
+            inserirElementoOrd(elem);
+        }
+    }
+
+    private void inserirElementoOrd(T elem) {
+        NoGenerico<T> novo = new NoGenerico<>(elem);
+        NoGenerico<T> atual;
+        NoGenerico<T> ant;
+        atual = this.prim;
+        ant = null;
+        //Se a lista estiver vazia o novo elemento será primeiro e ultimo
+        if (this.prim == null) {
+            this.prim = this.ult = novo;
+        }
+        //Se não estiver vazia 
+        else {
+            //Enquanto não for o fim da lista e o atual estiver
+            //em um elemento menor que o novo vou para o proximo
+            //Note que a ordem das condições faz a diferença 
+            //Se inverter, pode dar null pointer exception...
+            while (atual != null && atual.getValor().compareTo(elem) < 0) {
+                ant = atual;
+                atual = atual.getProx();
+            }
+            //Se ant estiver null é sinal de que não encontrou no laço
+            //Logo, o novo é menor do que o prim e deve entrar como novo prim
+            if (ant == null) {
+                novo.setProx(this.prim);
+                this.prim = novo;
+            }
+            //Se atual for null é sinal que varreu toda a lista e o novo deve
+            //entrar como ult
+            else if (atual == null){
+                this.ult.setProx(novo);
+                this.ult = novo;
+            }
+            //Se nao for prim nem ult, entrara entre o ant e o atual
+            else {
+                ant.setProx(novo);
+                novo.setProx(atual);
+            }
+        }
+        this.quant++;
+    }
+
+    public void inserirElementoNaoOrd(T elem){
         NoGenerico<T> novo = new NoGenerico<>(elem);
         //Se a lista está vazia
         if(this.prim == null){

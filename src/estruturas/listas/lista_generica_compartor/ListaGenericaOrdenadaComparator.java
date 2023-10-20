@@ -1,19 +1,23 @@
-package estruturas.lista_generica_comparable;
+package estruturas.listas.lista_generica_compartor;
 
-import estruturas.no.NoGenerico;
+import java.util.Comparator;
 
-public class ListaGenericaOrdenadaComparable<T extends Comparable> {
+import estruturas.listas.no.NoGenerico;
+
+public class ListaGenericaOrdenadaComparator<T> {
     
 
     private NoGenerico<T> prim;
     private NoGenerico<T> ult;
     private int quant;
     private final boolean ordenada;
+    private Comparator<T> comparator;
 
-    public ListaGenericaOrdenadaComparable(boolean ordenada){
+    public ListaGenericaOrdenadaComparator(boolean ordenada, Comparator<T> comparator){
         this.prim = this.ult = null;
         this.quant = 0;
         this.ordenada = ordenada;
+        this.comparator = comparator;
     }
 
     public NoGenerico<T> getPrim() {
@@ -56,7 +60,7 @@ public class ListaGenericaOrdenadaComparable<T extends Comparable> {
             //em um elemento menor que o novo vou para o proximo
             //Note que a ordem das condições faz a diferença 
             //Se inverter, pode dar null pointer exception...
-            while (atual != null && atual.getValor().compareTo(elem) < 0) {
+            while (atual != null && comparator.compare(atual.getValor(), elem) < 0) {
                 ant = atual;
                 atual = atual.getProx();
             }

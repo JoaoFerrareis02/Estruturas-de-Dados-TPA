@@ -1,9 +1,9 @@
-package estruturas.arvore_binaria_generica_balanceada;
+package estruturas.arvores.arvore_binaria_generica_balanceada;
 
 import java.util.Comparator;
 
-import estruturas.arvore_binaria_generica.ArvoreBinaria;
-import estruturas.no.NoArvore;
+import estruturas.arvores.arvore_binaria_generica.ArvoreBinaria;
+import estruturas.arvores.no.NoArvore;
 
 public class ArvoreAVL<T> extends ArvoreBinaria<T> {
 
