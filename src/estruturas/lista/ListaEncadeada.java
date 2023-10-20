@@ -1,24 +1,23 @@
-package structures.generic_list;
+package estruturas.lista;
 
-import structures.nodes.GenericNode;
+import estruturas.no.No;
 
-public class GenericLinkedList<T> {
-    
+public class ListaEncadeada {
 
-    private GenericNode<T> prim;
-    private GenericNode<T> ult;
+    private No prim;
+    private No ult;
     private int quant;
 
-    public GenericLinkedList(){
+    public ListaEncadeada(){
         this.prim = this.ult = null;
         this.quant = 0;
     }
 
-    public GenericNode<T> getPrim() {
+    public No getPrim() {
         return prim;
     }
 
-    public GenericNode<T> getUlt() {
+    public No getUlt() {
         return ult;
     }
 
@@ -26,8 +25,8 @@ public class GenericLinkedList<T> {
         return quant;
     }
 
-    public void inserirElemento(T elem){
-        GenericNode<T> novo = new GenericNode<>(elem);
+    public void inserirElemento(Object elem){
+        No novo = new No(elem);
         //Se a lista está vazia
         if(this.prim == null){
             this.prim = novo;
@@ -41,8 +40,8 @@ public class GenericLinkedList<T> {
         this.quant++;
     }
 
-    public boolean contemElemento(T elem){
-        GenericNode<T> aux = this.prim;
+    public boolean contemElemento(Object elem){
+        No aux = this.prim;
         while(aux != null){
             if(aux.getValor().equals(elem)) return true;
             aux = aux.getProx();
@@ -50,9 +49,9 @@ public class GenericLinkedList<T> {
         return false;
     }
 
-    public boolean excluirElemento(T elem){
-        GenericNode<T> aux = this.prim;
-        GenericNode<T> ant = null;
+    public boolean excluirElemento(Object elem){
+        No aux = this.prim;
+        No ant = null;
         while(aux != null){
             //Se encontrou remove o elemento
             if (aux.getValor().equals(elem)) {
@@ -82,7 +81,7 @@ public class GenericLinkedList<T> {
 
     @Override
     public String toString() {
-        GenericNode<T> aux = this.prim;
+        No aux = this.prim;
         StringBuilder s = new StringBuilder();
         s.append("[");
         while (aux != null) {
@@ -93,5 +92,7 @@ public class GenericLinkedList<T> {
         s.append("]");
         return s.toString();
     }
+
+    
 
 }

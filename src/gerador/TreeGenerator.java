@@ -1,9 +1,9 @@
-package generator;
+package gerador;
 
 import java.util.Random;
 
-import entities.Aluno;
-import structures.generic_binary_tree.IGenericBinaryTree;
+import entidades.Aluno;
+import estruturas.arvore_binaria_generica.IArvoreBinaria;
 
 public class TreeGenerator {
     
@@ -91,7 +91,7 @@ public class TreeGenerator {
      */
     
 //---Este é o método citado na questão 4 do primeiro relatório
-    public void geraArvoreDegenerada(int n, IGenericBinaryTree<Aluno> arv){ 
+    public void geraArvoreDegenerada(int n, IArvoreBinaria<Aluno> arv){ 
         //inicio matricula com o valor da constante matriculaBase
         int i,matricula= matriculaBase;
         String nome;
@@ -112,7 +112,7 @@ public class TreeGenerator {
      */
     
 //---Este é o método citado na questão 8 do primeiro relatório
-    public void geraArvorePerfeitamenteBalanceada(int min, int max, IGenericBinaryTree<Aluno> arv){
+    public void geraArvorePerfeitamenteBalanceada(int min, int max, IArvoreBinaria<Aluno> arv){
         //Se o valor da menor matrícula for menor ou igual ou maior valor é sinal que ainda preciso inserir elementos na árvore
         //Senão essa recursão acabou...
         if (min <= max){

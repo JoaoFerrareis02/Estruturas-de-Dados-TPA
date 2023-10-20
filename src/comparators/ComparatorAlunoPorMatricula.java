@@ -2,7 +2,7 @@ package comparators;
 
 import java.util.Comparator;
 
-import entities.Aluno;
+import entidades.Aluno;
 
 public class ComparatorAlunoPorMatricula implements Comparator<Aluno> {
 

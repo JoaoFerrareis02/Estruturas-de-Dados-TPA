@@ -1,12 +1,12 @@
-package structures.nodes;
+package estruturas.no;
 
-public class GenericTreeNode<T> {
+public class NoArvore<T> {
     
     private T valor;
-    private GenericTreeNode<T> filhoEsquerda;
-    private GenericTreeNode<T> filhoDireita;
+    private NoArvore<T> filhoEsquerda;
+    private NoArvore<T> filhoDireita;
     
-    public GenericTreeNode(T valor) {
+    public NoArvore(T valor) {
         this.valor = valor;
         this.filhoEsquerda = null;
         this.filhoDireita = null;
@@ -20,19 +20,19 @@ public class GenericTreeNode<T> {
         this.valor = valor;
     }
 
-    public GenericTreeNode<T> getFilhoEsquerda() {
+    public NoArvore<T> getFilhoEsquerda() {
         return filhoEsquerda;
     }
 
-    public void setFilhoEsquerda(GenericTreeNode<T> filhoEsquerda) {
+    public void setFilhoEsquerda(NoArvore<T> filhoEsquerda) {
         this.filhoEsquerda = filhoEsquerda;
     }
 
-    public GenericTreeNode<T> getFilhoDireita() {
+    public NoArvore<T> getFilhoDireita() {
         return filhoDireita;
     }
 
-    public void setFilhoDireita(GenericTreeNode<T> filhoDireita) {
+    public void setFilhoDireita(NoArvore<T> filhoDireita) {
         this.filhoDireita = filhoDireita;
     }
 
@@ -40,7 +40,7 @@ public class GenericTreeNode<T> {
         return obterAltura(this);
     }
 
-    private int obterAltura(GenericTreeNode<T> r) {
+    private int obterAltura(NoArvore<T> r) {
         if (r == null) {
             return -1;
         }

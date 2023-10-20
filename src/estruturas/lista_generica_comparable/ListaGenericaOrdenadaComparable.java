@@ -1,26 +1,26 @@
-package structures.generic_comparable;
+package estruturas.lista_generica_comparable;
 
-import structures.nodes.GenericNode;
+import estruturas.no.NoGenerico;
 
-public class GenericLinkedListWithComparable<T extends Comparable> {
+public class ListaGenericaOrdenadaComparable<T extends Comparable> {
     
 
-    private GenericNode<T> prim;
-    private GenericNode<T> ult;
+    private NoGenerico<T> prim;
+    private NoGenerico<T> ult;
     private int quant;
     private final boolean ordenada;
 
-    public GenericLinkedListWithComparable(boolean ordenada){
+    public ListaGenericaOrdenadaComparable(boolean ordenada){
         this.prim = this.ult = null;
         this.quant = 0;
         this.ordenada = ordenada;
     }
 
-    public GenericNode<T> getPrim() {
+    public NoGenerico<T> getPrim() {
         return prim;
     }
 
-    public GenericNode<T> getUlt() {
+    public NoGenerico<T> getUlt() {
         return ult;
     }
 
@@ -41,9 +41,9 @@ public class GenericLinkedListWithComparable<T extends Comparable> {
     }
 
     private void inserirElementoOrd(T elem) {
-        GenericNode<T> novo = new GenericNode<>(elem);
-        GenericNode<T> atual;
-        GenericNode<T> ant;
+        NoGenerico<T> novo = new NoGenerico<>(elem);
+        NoGenerico<T> atual;
+        NoGenerico<T> ant;
         atual = this.prim;
         ant = null;
         //Se a lista estiver vazia o novo elemento será primeiro e ultimo
@@ -82,7 +82,7 @@ public class GenericLinkedListWithComparable<T extends Comparable> {
     }
 
     public void inserirElementoNaoOrd(T elem){
-        GenericNode<T> novo = new GenericNode<>(elem);
+        NoGenerico<T> novo = new NoGenerico<>(elem);
         //Se a lista está vazia
         if(this.prim == null){
             this.prim = novo;
@@ -97,7 +97,7 @@ public class GenericLinkedListWithComparable<T extends Comparable> {
     }
 
     public boolean contemElemento(T elem){
-        GenericNode<T> aux = this.prim;
+        NoGenerico<T> aux = this.prim;
         while(aux != null){
             if(aux.getValor().equals(elem)) return true;
             aux = aux.getProx();
@@ -106,8 +106,8 @@ public class GenericLinkedListWithComparable<T extends Comparable> {
     }
 
     public boolean excluirElemento(T elem){
-        GenericNode<T> aux = this.prim;
-        GenericNode<T> ant = null;
+        NoGenerico<T> aux = this.prim;
+        NoGenerico<T> ant = null;
         while(aux != null){
             //Se encontrou remove o elemento
             if (aux.getValor().equals(elem)) {
@@ -137,7 +137,7 @@ public class GenericLinkedListWithComparable<T extends Comparable> {
 
     @Override
     public String toString() {
-        GenericNode<T> aux = this.prim;
+        NoGenerico<T> aux = this.prim;
         StringBuilder s = new StringBuilder();
         s.append("[");
         while (aux != null) {

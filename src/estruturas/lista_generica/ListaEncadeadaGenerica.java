@@ -1,23 +1,24 @@
-package structures.list;
+package estruturas.lista_generica;
 
-import structures.nodes.Node;
+import estruturas.no.NoGenerico;
 
-public class LinkedList {
+public class ListaEncadeadaGenerica<T> {
+    
 
-    private Node prim;
-    private Node ult;
+    private NoGenerico<T> prim;
+    private NoGenerico<T> ult;
     private int quant;
 
-    public LinkedList(){
+    public ListaEncadeadaGenerica(){
         this.prim = this.ult = null;
         this.quant = 0;
     }
 
-    public Node getPrim() {
+    public NoGenerico<T> getPrim() {
         return prim;
     }
 
-    public Node getUlt() {
+    public NoGenerico<T> getUlt() {
         return ult;
     }
 
@@ -25,8 +26,8 @@ public class LinkedList {
         return quant;
     }
 
-    public void inserirElemento(Object elem){
-        Node novo = new Node(elem);
+    public void inserirElemento(T elem){
+        NoGenerico<T> novo = new NoGenerico<>(elem);
         //Se a lista está vazia
         if(this.prim == null){
             this.prim = novo;
@@ -40,8 +41,8 @@ public class LinkedList {
         this.quant++;
     }
 
-    public boolean contemElemento(Object elem){
-        Node aux = this.prim;
+    public boolean contemElemento(T elem){
+        NoGenerico<T> aux = this.prim;
         while(aux != null){
             if(aux.getValor().equals(elem)) return true;
             aux = aux.getProx();
@@ -49,9 +50,9 @@ public class LinkedList {
         return false;
     }
 
-    public boolean excluirElemento(Object elem){
-        Node aux = this.prim;
-        Node ant = null;
+    public boolean excluirElemento(T elem){
+        NoGenerico<T> aux = this.prim;
+        NoGenerico<T> ant = null;
         while(aux != null){
             //Se encontrou remove o elemento
             if (aux.getValor().equals(elem)) {
@@ -81,7 +82,7 @@ public class LinkedList {
 
     @Override
     public String toString() {
-        Node aux = this.prim;
+        NoGenerico<T> aux = this.prim;
         StringBuilder s = new StringBuilder();
         s.append("[");
         while (aux != null) {
@@ -92,7 +93,5 @@ public class LinkedList {
         s.append("]");
         return s.toString();
     }
-
-    
 
 }

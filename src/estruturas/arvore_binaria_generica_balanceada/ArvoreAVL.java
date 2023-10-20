@@ -1,42 +1,42 @@
-package structures.generic_balanced_binary_tree;
+package estruturas.arvore_binaria_generica_balanceada;
 
 import java.util.Comparator;
 
-import structures.generic_binary_tree.GenericBinaryTree;
-import structures.nodes.GenericTreeNode;
+import estruturas.arvore_binaria_generica.ArvoreBinaria;
+import estruturas.no.NoArvore;
 
-public class GenericBalancedBinaryTree<T> extends GenericBinaryTree<T> {
+public class ArvoreAVL<T> extends ArvoreBinaria<T> {
 
-    public GenericBalancedBinaryTree(Comparator<T> comparator) {
+    public ArvoreAVL(Comparator<T> comparator) {
         super(comparator);
     }
 
-    private GenericTreeNode<T> rotacaoEsquerda(GenericTreeNode<T> r) {
-        GenericTreeNode<T> f = r.getFilhoDireita();
+    private NoArvore<T> rotacaoEsquerda(NoArvore<T> r) {
+        NoArvore<T> f = r.getFilhoDireita();
         r.setFilhoDireita(f.getFilhoEsquerda());
         f.setFilhoEsquerda(r);
         return f;
     }
     
-    private GenericTreeNode<T> rotacaoDireita(GenericTreeNode<T> r) {
-        GenericTreeNode<T> f = r.getFilhoEsquerda();
+    private NoArvore<T> rotacaoDireita(NoArvore<T> r) {
+        NoArvore<T> f = r.getFilhoEsquerda();
         r.setFilhoEsquerda(f.getFilhoDireita());
         f.setFilhoDireita(r);
         return f;
     }
 
-    private GenericTreeNode<T> rotacaoEsquerdaDireita(GenericTreeNode<T> r) {
+    private NoArvore<T> rotacaoEsquerdaDireita(NoArvore<T> r) {
         r.setFilhoEsquerda(rotacaoEsquerda(r.getFilhoDireita()));
         return rotacaoDireita(r);
     }
 
-    private GenericTreeNode<T> rotacaoDireitaEsquerda(GenericTreeNode<T> r) {
+    private NoArvore<T> rotacaoDireitaEsquerda(NoArvore<T> r) {
         r.setFilhoDireita(rotacaoDireita(r.getFilhoDireita()));
         return rotacaoEsquerda(r);
     }
 
     @Override
-    protected GenericTreeNode<T> adicionarRecursivo(GenericTreeNode<T> raiz, GenericTreeNode<T> novo) {
+    protected NoArvore<T> adicionarRecursivo(NoArvore<T> raiz, NoArvore<T> novo) {
         raiz = super.adicionarRecursivo(raiz, novo);
         if (raiz.fatorBalanceamento() > 1) {
             if (raiz.getFilhoDireita().fatorBalanceamento() > 0) {

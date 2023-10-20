@@ -1,11 +1,11 @@
-package structures.nodes;
+package estruturas.no;
 
-public class Node {
+public class No {
     
     private Object valor;
-    private Node prox;
+    private No prox;
 
-    public Node (Object valor){
+    public No (Object valor){
         this.valor = valor;
         this.prox = null;
     }
@@ -18,11 +18,11 @@ public class Node {
         this.valor = valor;
     }
 
-    public Node getProx() {
+    public No getProx() {
         return prox;
     }
 
-    public void setProx(Node prox) {
+    public void setProx(No prox) {
         this.prox = prox;
     }   
 

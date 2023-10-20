@@ -1,6 +1,6 @@
-package structures.generic_binary_tree;
+package estruturas.arvore_binaria_generica;
 
-public interface IGenericBinaryTree<T> {
+public interface IArvoreBinaria<T> {
     
     /**
      * Método para adicionar um elemento à árvore.

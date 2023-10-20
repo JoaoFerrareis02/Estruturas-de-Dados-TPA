@@ -1,11 +1,11 @@
-package structures.nodes;
+package estruturas.no;
 
-public class GenericNode<T> {
+public class NoGenerico<T> {
     
     private T valor;
-    private GenericNode<T> prox;
+    private NoGenerico<T> prox;
     
-    public GenericNode(T valor) {
+    public NoGenerico(T valor) {
         this.valor = valor;
         this.prox = null;
     }
@@ -18,11 +18,11 @@ public class GenericNode<T> {
         this.valor = valor;
     }
 
-    public GenericNode<T> getProx() {
+    public NoGenerico<T> getProx() {
         return prox;
     }
 
-    public void setProx(GenericNode<T> prox) {
+    public void setProx(NoGenerico<T> prox) {
         this.prox = prox;
     }
 

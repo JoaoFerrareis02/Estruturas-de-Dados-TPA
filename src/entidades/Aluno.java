@@ -1,4 +1,4 @@
-package entities;
+package entidades;
 
 public class Aluno implements Comparable<Aluno>{
     

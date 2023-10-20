@@ -1,31 +1,32 @@
-package structures.generic_binary_tree;
+package estruturas.arvore_binaria_generica;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import structures.nodes.GenericTreeNode;
 
-public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
+import estruturas.no.NoArvore;
+
+public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
     
-    private GenericTreeNode<T> raiz = null;
+    private NoArvore<T> raiz = null;
 
-    private GenericTreeNode<T> atual;
+    private NoArvore<T> atual;
 
-    private List<GenericTreeNode<T>> listaNodes; 
+    private List<NoArvore<T>> listaNodes; 
 
     private int quantidade = 0;
 
     private Comparator<T> comparator;
 
-    public GenericBinaryTree(Comparator<T> comparator) {
+    public ArvoreBinaria(Comparator<T> comparator) {
         this.comparator = comparator;
     }
 
     @Override
     public void adicionar(T novoValor) {
-        GenericTreeNode<T> novoNo =  new GenericTreeNode<>(novoValor);
+        NoArvore<T> novoNo =  new NoArvore<>(novoValor);
         if (this.raiz == null) {
             this.raiz = novoNo;
         } else {
@@ -34,7 +35,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
         this.quantidade++;
     }
 
-    protected GenericTreeNode<T> adicionarRecursivo(GenericTreeNode<T> atual, GenericTreeNode<T> novo) {
+    protected NoArvore<T> adicionarRecursivo(NoArvore<T> atual, NoArvore<T> novo) {
         if (comparator.compare(novo.getValor(), atual.getValor()) < 0) {
             if (atual.getFilhoEsquerda() == null) {
                 atual.setFilhoEsquerda(novo);
@@ -56,7 +57,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
         return pesquisarRecursivo(this.raiz, valor);
     }
 
-    private T pesquisarRecursivo(GenericTreeNode<T> raiz, T valor) {
+    private T pesquisarRecursivo(NoArvore<T> raiz, T valor) {
         if (raiz == null) {
             return null;
         }
@@ -77,7 +78,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
         return valor;
     }
 
-    private GenericTreeNode<T> removerRecursivo(GenericTreeNode<T> raiz, T valor) {
+    private NoArvore<T> removerRecursivo(NoArvore<T> raiz, T valor) {
         if (raiz.getFilhoEsquerda() == null) {
             return null;
         }
@@ -88,7 +89,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
             } else if (raiz.getFilhoDireita() == null){
                 return raiz.getFilhoEsquerda();
             }
-            GenericTreeNode<T> valorMinimo = encontrarValorMinimo(raiz.getFilhoDireita());
+            NoArvore<T> valorMinimo = encontrarValorMinimo(raiz.getFilhoDireita());
             raiz.setValor(valorMinimo.getValor());
             raiz.setFilhoDireita(removerRecursivo(raiz.getFilhoDireita(), valorMinimo.getValor()));
         } else if ( comp < 0) {
@@ -104,7 +105,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
         return alturaRecursivo(this.raiz);
     }
 
-    private int alturaRecursivo(GenericTreeNode<T> raiz) {
+    private int alturaRecursivo(NoArvore<T> raiz) {
         if (raiz == null) {
             return 0;
         }
@@ -124,11 +125,11 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
         if (this.raiz == null) {
             return "[]";
         }
-        Queue<GenericTreeNode<T>> listaDeNos = new LinkedList<>();
+        Queue<NoArvore<T>> listaDeNos = new LinkedList<>();
         listaDeNos.add(this.raiz);
         sb.append("[\n");
         while (!listaDeNos.isEmpty()) {
-            GenericTreeNode<T> node = listaDeNos.poll();
+            NoArvore<T> node = listaDeNos.poll();
             sb.append(node.getValor() + "\n");
             if (node.getFilhoEsquerda() != null) {
                 listaDeNos.add(node.getFilhoEsquerda());
@@ -152,7 +153,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
         
     }
 
-    private void caminharEmOrdem(GenericTreeNode<T> raiz, StringBuilder sb) {
+    private void caminharEmOrdem(NoArvore<T> raiz, StringBuilder sb) {
         
         if (raiz == null) {
             return;
@@ -189,7 +190,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
 
     }
 
-    private GenericTreeNode<T> encontrarValorMinimo(GenericTreeNode<T> no) {
+    private NoArvore<T> encontrarValorMinimo(NoArvore<T> no) {
         
         while (no.getFilhoEsquerda() != null) {
             no = no.getFilhoEsquerda();
@@ -199,7 +200,7 @@ public class GenericBinaryTree<T> implements IGenericBinaryTree<T> {
     
     }
 
-    private void empilharCaminhoParaMenorValor(GenericTreeNode<T> no) {
+    private void empilharCaminhoParaMenorValor(NoArvore<T> no) {
         while (no != null) {
             this.listaNodes.add(no);
             no = no.getFilhoEsquerda();
