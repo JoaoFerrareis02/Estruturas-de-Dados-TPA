@@ -107,7 +107,7 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
 
     private int alturaRecursivo(NoArvore<T> raiz) {
         if (raiz == null) {
-            return 0;
+            return -1;
         }
         int alturaEsquerda = alturaRecursivo(raiz.getFilhoEsquerda());
         int alturaDireita = alturaRecursivo(raiz.getFilhoDireita());
