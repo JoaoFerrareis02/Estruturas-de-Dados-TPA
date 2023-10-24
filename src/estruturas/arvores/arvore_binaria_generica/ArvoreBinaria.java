@@ -3,40 +3,39 @@ package estruturas.arvores.arvore_binaria_generica;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import estruturas.arvores.no.NoArvore;
 
 public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
-    
-    private NoArvore<T> raiz = null;
 
-    private NoArvore<T> atual;
+    protected NoArvore<T> raiz = null;
 
-    private List<NoArvore<T>> listaNodes; 
+    protected Comparator<T> comparador;
 
-    private int quantidade = 0;
+    protected NoArvore<T> atual = null;
 
-    private Comparator<T> comparator;
+    private ArrayList<NoArvore<T>> pilhaNavegacao;
 
-    public ArvoreBinaria(Comparator<T> comparator) {
-        this.comparator = comparator;
+    private boolean primeiraChamada = true;
+
+    public ArvoreBinaria(Comparator<T> comp) {
+        comparador = comp;
+        pilhaNavegacao = new ArrayList<>();
     }
 
     @Override
     public void adicionar(T novoValor) {
-        NoArvore<T> novoNo =  new NoArvore<>(novoValor);
+        NoArvore<T> novoNo = new NoArvore<>(novoValor);
         if (this.raiz == null) {
             this.raiz = novoNo;
         } else {
             this.raiz = adicionarRecursivo(this.raiz, novoNo);
         }
-        this.quantidade++;
     }
 
     protected NoArvore<T> adicionarRecursivo(NoArvore<T> atual, NoArvore<T> novo) {
-        if (comparator.compare(novo.getValor(), atual.getValor()) < 0) {
+        if (comparador.compare(novo.getValor(), atual.getValor()) < 0) {
             if (atual.getFilhoEsquerda() == null) {
                 atual.setFilhoEsquerda(novo);
             } else {
@@ -54,165 +53,169 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
 
     @Override
     public T pesquisar(T valor) {
-        return pesquisarRecursivo(this.raiz, valor);
-    }
-
-    private T pesquisarRecursivo(NoArvore<T> raiz, T valor) {
         if (raiz == null) {
             return null;
         }
-        int comp = comparator.compare(valor, raiz.getValor());
-        if (comp < 0) {
-            return pesquisarRecursivo(raiz.getFilhoEsquerda(), valor);
-        } else if (comp > 0) {
-            return pesquisarRecursivo(raiz.getFilhoDireita(), valor);
-        } else {
-            return raiz.getValor();
+        atual = raiz;
+        while (atual != null) {
+            int comparacao = comparador.compare(valor, atual.getValor());
+            if (comparacao == 0) {
+                return atual.getValor();
+            } else if (comparacao < 0) {
+                atual = atual.getFilhoEsquerda();
+            } else {
+                atual = atual.getFilhoDireita();
+            }
         }
+        return null;
     }
 
     @Override
     public T remover(T valor) {
-        this.raiz = removerRecursivo(this.raiz, valor); 
-        this.quantidade--;
+        raiz = removerRecursivo(raiz, valor);
         return valor;
     }
 
-    private NoArvore<T> removerRecursivo(NoArvore<T> raiz, T valor) {
-        if (raiz.getFilhoEsquerda() == null) {
+    protected NoArvore<T> removerRecursivo(NoArvore<T> no, T valor) {
+        if (no == null) {
             return null;
         }
-        int comp = comparator.compare(valor, raiz.getValor());
-        if (comp == 0) {
-            if (raiz.getFilhoEsquerda() == null) {
-                return raiz.getFilhoDireita();
-            } else if (raiz.getFilhoDireita() == null){
-                return raiz.getFilhoEsquerda();
-            }
-            NoArvore<T> valorMinimo = encontrarValorMinimo(raiz.getFilhoDireita());
-            raiz.setValor(valorMinimo.getValor());
-            raiz.setFilhoDireita(removerRecursivo(raiz.getFilhoDireita(), valorMinimo.getValor()));
-        } else if ( comp < 0) {
-            raiz.setFilhoEsquerda(removerRecursivo(raiz.getFilhoEsquerda(), valor));
+        int comparacao = comparador.compare(valor, no.getValor());
+        if (comparacao < 0) {
+            no.setFilhoEsquerda(removerRecursivo(no.getFilhoEsquerda(), valor));
+        } else if (comparacao > 0) {
+            no.setFilhoDireita(removerRecursivo(no.getFilhoDireita(), valor));
         } else {
-            raiz.setFilhoDireita(removerRecursivo(raiz.getFilhoDireita(), valor));
+            if (no.getFilhoEsquerda() == null && no.getFilhoDireita() == null) {
+                return null;
+            } else if (no.getFilhoEsquerda() == null) {
+                return no.getFilhoDireita();
+            } else if (no.getFilhoDireita() == null) {
+                return no.getFilhoEsquerda();
+            } else {
+                NoArvore<T> substituto = getSubstituto(no);
+                no.setValor(substituto.getValor());
+                no.setFilhoEsquerda(removerRecursivo(no.getFilhoEsquerda(), substituto.getValor()));
+            }
         }
-        return raiz;
+        return no;
+    }
+
+    private NoArvore<T> getSubstituto(NoArvore<T> no) {
+        NoArvore<T> substituto = no.getFilhoEsquerda();
+        while (substituto.getFilhoDireita() != null) {
+            substituto = substituto.getFilhoDireita();
+        }
+        return substituto;
     }
 
     @Override
     public int altura() {
-        return alturaRecursivo(this.raiz);
+        return alturaRecursivo(raiz);
     }
 
-    private int alturaRecursivo(NoArvore<T> raiz) {
-        if (raiz == null) {
+    private int alturaRecursivo(NoArvore<T> no) {
+        if (no == null) {
             return -1;
         }
-        int alturaEsquerda = alturaRecursivo(raiz.getFilhoEsquerda());
-        int alturaDireita = alturaRecursivo(raiz.getFilhoDireita());
-        return 1 + Math.max(alturaDireita,alturaEsquerda);
+        int alturaEsquerda = alturaRecursivo(no.getFilhoEsquerda());
+        int alturaDireita = alturaRecursivo(no.getFilhoDireita());
+        return Math.max(alturaEsquerda, alturaDireita) + 1;
     }
 
     @Override
     public int quantidadeNos() {
-        return this.quantidade;
+        return contarNos(raiz);
+    }
+
+    private int contarNos(NoArvore<T> no) {
+        if (no == null) {
+            return 0;
+        }
+        int nosNaEsquerda = contarNos(no.getFilhoEsquerda());
+        int nosNaDireita = contarNos(no.getFilhoDireita());
+        return 1 + nosNaEsquerda + nosNaDireita;
     }
 
     @Override
     public String caminharEmNivel() {
-        StringBuilder sb = new StringBuilder();
-        if (this.raiz == null) {
-            return "[]";
+        if (raiz == null) {
+            return "[Vazio]";
         }
-        Queue<NoArvore<T>> listaDeNos = new LinkedList<>();
-        listaDeNos.add(this.raiz);
-        sb.append("[\n");
-        while (!listaDeNos.isEmpty()) {
-            NoArvore<T> node = listaDeNos.poll();
-            sb.append(node.getValor() + "\n");
-            if (node.getFilhoEsquerda() != null) {
-                listaDeNos.add(node.getFilhoEsquerda());
+        StringBuilder resultado = new StringBuilder("[");
+        Queue<NoArvore<T>> queue = new LinkedList<>();
+        queue.add(raiz);
+        while (!queue.isEmpty()) {
+            NoArvore<T> no = queue.poll();
+            resultado.append(no.getValor().toString());
+            if (no.getFilhoEsquerda() != null) {
+                queue.add(no.getFilhoEsquerda());
             }
-            if (node.getFilhoDireita() != null) {
-                listaDeNos.add(node.getFilhoDireita());
+            if (no.getFilhoDireita() != null) {
+                queue.add(no.getFilhoDireita());
+            }
+            if (!queue.isEmpty()) {
+                resultado.append("\n");
             }
         }
-        sb.append("]");
-        return sb.toString();
+        resultado.append("]");
+        return resultado.toString();
     }
 
     @Override
     public String caminharEmOrdem() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("[\n");
-        caminharEmOrdem(this.raiz, sb);
-        sb.append("]");
-        return sb.toString();
-        
-    }
-
-    private void caminharEmOrdem(NoArvore<T> raiz, StringBuilder sb) {
-        
+        StringBuilder resultado = new StringBuilder("[");
         if (raiz == null) {
-            return;
+            resultado.append("Vazio]");
+        } else {
+            reiniciarNavegacao();
+            atual = raiz;
+            while (atual != null || !pilhaNavegacao.isEmpty()) {
+                while (atual != null) {
+                    pilhaNavegacao.add(atual);
+                    atual = atual.getFilhoEsquerda();
+                }
+                int tamanho = pilhaNavegacao.size();
+                atual = pilhaNavegacao.remove(tamanho - 1);
+                resultado.append(atual.getValor().toString()).append("\n");
+                atual = atual.getFilhoDireita();
+            }
         }
-
-        caminharEmOrdem(raiz.getFilhoEsquerda(), sb);
-        sb.append(raiz.getValor() + "\n");
-        caminharEmOrdem(raiz.getFilhoDireita(), sb);
-
+        resultado.append("]");
+        return resultado.toString();
     }
 
     @Override
     public T obterProximo() {
-        
-        if (this.atual == null && this.listaNodes.isEmpty()) {
-            // Primeira chamada, inicialize a iteração
-            this.atual = encontrarValorMinimo(raiz);
-            this.listaNodes = new ArrayList<>();
-            empilharCaminhoParaMenorValor(this.atual);
-        } else if (!this.listaNodes.isEmpty()) {
-            // Já em iteração, obtenha o próximo valor em ordem crescente
-            this.atual = this.listaNodes.remove(-1);
-            empilharCaminhoParaMenorValor(this.atual.getFilhoDireita());
+        if (raiz == null) {
+            return null;
+        }
+        if (primeiraChamada) {
+            primeiraChamada = false;
+            atual = raiz;
+            while (atual != null) {
+                pilhaNavegacao.add(atual);
+                atual = atual.getFilhoEsquerda();
+            }
         } else {
-            // Iteração concluída, retorne null
-            this.atual = null;
+            if (!pilhaNavegacao.isEmpty()) {
+                atual = pilhaNavegacao.remove(pilhaNavegacao.size() -1);
+                NoArvore<T> temp = atual.getFilhoDireita();
+                while (temp != null) {
+                    pilhaNavegacao.add(temp);
+                    temp = temp.getFilhoEsquerda();
+                }
+            }
         }
-
-        if (this.atual != null) {
-            return this.atual.getValor();
-        }
-
-        return null;
-
-    }
-
-    private NoArvore<T> encontrarValorMinimo(NoArvore<T> no) {
-        
-        while (no.getFilhoEsquerda() != null) {
-            no = no.getFilhoEsquerda();
-        }
-        
-        return no;
-    
-    }
-
-    private void empilharCaminhoParaMenorValor(NoArvore<T> no) {
-        while (no != null) {
-            this.listaNodes.add(no);
-            no = no.getFilhoEsquerda();
-        }
+        return atual != null ? atual.getValor() : null;
     }
 
     @Override
     public void reiniciarNavegacao() {
-        this.atual = null;
-        this.listaNodes = null;
+        if (pilhaNavegacao != null) {
+            primeiraChamada = true;
+            pilhaNavegacao.clear();
+        }
     }
-
-
 
 }
