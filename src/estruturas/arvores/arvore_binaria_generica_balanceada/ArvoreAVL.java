@@ -55,7 +55,7 @@ public class ArvoreAVL<T> extends ArvoreBinaria<T> {
     }
 
     @Override
-    protected NoArvore<T> removerRecursivo(NoArvore<T> no, T valor) {
+    protected NoArvore<T> removerRecursivo(NoArvore<T> no, T valor)  {
         raiz = super.removerRecursivo(no, valor);
         if (raiz.fatorBalanceamento() > 1) {
             if (raiz.getFilhoDireita().fatorBalanceamento() > 0) {

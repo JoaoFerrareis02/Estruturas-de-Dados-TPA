@@ -2,7 +2,7 @@ package estruturas.listas.lista_generica_comparable;
 
 import estruturas.listas.no.NoGenerico;
 
-public class ListaGenericaOrdenadaComparable<T extends Comparable> {
+public class ListaGenericaOrdenadaComparable<T extends Comparable<T>> {
     
 
     private NoGenerico<T> prim;

@@ -31,7 +31,7 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
             this.raiz = novoNo;
         } else {
             this.raiz = adicionarRecursivo(this.raiz, novoNo);
-        }
+        } 
     }
 
     protected NoArvore<T> adicionarRecursivo(NoArvore<T> atual, NoArvore<T> novo) {
@@ -75,36 +75,39 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         raiz = removerRecursivo(raiz, valor);
         return valor;
     }
-
-    protected NoArvore<T> removerRecursivo(NoArvore<T> no, T valor) {
-        if (no == null) {
+    
+    protected NoArvore<T> removerRecursivo(NoArvore<T> atual, T valor) {
+        if (atual == null) {
             return null;
         }
-        int comparacao = comparador.compare(valor, no.getValor());
+        int comparacao = comparador.compare(valor, atual.getValor());
         if (comparacao < 0) {
-            no.setFilhoEsquerda(removerRecursivo(no.getFilhoEsquerda(), valor));
+            atual.setFilhoEsquerda(removerRecursivo(atual.getFilhoEsquerda(), valor));
         } else if (comparacao > 0) {
-            no.setFilhoDireita(removerRecursivo(no.getFilhoDireita(), valor));
+            atual.setFilhoDireita(removerRecursivo(atual.getFilhoDireita(), valor));
         } else {
-            if (no.getFilhoEsquerda() == null && no.getFilhoDireita() == null) {
+            if (atual.getFilhoEsquerda() == null && atual.getFilhoDireita() == null) {
                 return null;
-            } else if (no.getFilhoEsquerda() == null) {
-                return no.getFilhoDireita();
-            } else if (no.getFilhoDireita() == null) {
-                return no.getFilhoEsquerda();
-            } else {
-                NoArvore<T> substituto = getSubstituto(no);
-                no.setValor(substituto.getValor());
-                no.setFilhoEsquerda(removerRecursivo(no.getFilhoEsquerda(), substituto.getValor()));
             }
+            if (atual.getFilhoEsquerda() == null) {
+                return atual.getFilhoDireita();
+            }
+            if (atual.getFilhoDireita() == null) {
+                return atual.getFilhoEsquerda();
+            }
+            NoArvore<T> substituto = getSubstituto(atual);
+            atual.setValor(substituto.getValor());
+            atual.setFilhoEsquerda(removerRecursivo(atual.getFilhoEsquerda(), substituto.getValor()));
         }
-        return no;
+        return atual;
     }
-
+    
     private NoArvore<T> getSubstituto(NoArvore<T> no) {
-        NoArvore<T> substituto = no.getFilhoEsquerda();
-        while (substituto.getFilhoDireita() != null) {
-            substituto = substituto.getFilhoDireita();
+        NoArvore<T> substituto = no;
+        NoArvore<T> filhoEsquerda = no.getFilhoEsquerda();
+        while (filhoEsquerda != null) {
+            substituto = filhoEsquerda;
+            filhoEsquerda = filhoEsquerda.getFilhoEsquerda();
         }
         return substituto;
     }
@@ -199,7 +202,7 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
             }
         } else {
             if (!pilhaNavegacao.isEmpty()) {
-                atual = pilhaNavegacao.remove(pilhaNavegacao.size() -1);
+                atual = pilhaNavegacao.remove(pilhaNavegacao.size() - 1);
                 NoArvore<T> temp = atual.getFilhoDireita();
                 while (temp != null) {
                     pilhaNavegacao.add(temp);
