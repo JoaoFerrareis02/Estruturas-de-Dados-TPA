@@ -56,7 +56,7 @@ public class NoArvore<T> {
     }
 
     public int fatorBalanceamento(){
-        return obterAltura(this.filhoDireita) + obterAltura(this.filhoEsquerda);
+        return obterAltura(this.filhoDireita) - obterAltura(this.filhoEsquerda);
     }
 
 }
