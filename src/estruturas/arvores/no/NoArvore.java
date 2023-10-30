@@ -47,11 +47,7 @@ public class NoArvore<T> {
         else {
             int hd = obterAltura(r.getFilhoDireita());
             int he = obterAltura(r.getFilhoEsquerda());
-            if (hd > he) {
-                return hd + 1;
-            } else {
-                return he + 1;
-            }
+            return Math.max(hd,he) + 1;
         }
     }
 
